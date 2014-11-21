@@ -2,6 +2,11 @@
 #define INTERFACING_H
 
 #include <QMainWindow>
+#include <QSerialPort>
+#include <QMessageBox>
+#include <QTimer>
+#include <QTime>
+
 
 namespace Ui {
 class interfacing;
@@ -17,6 +22,9 @@ public:
 
 private:
     Ui::interfacing *ui;
+
+private slots:
+
 };
 
 #endif // INTERFACING_H
