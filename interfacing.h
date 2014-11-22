@@ -22,9 +22,14 @@ public:
 
 private:
     Ui::interfacing *ui;
+    QSerialPort* obj_port;
+    QTimer* obj_timer;
 
 private slots:
-
+    void on_actionQuit_triggered();
+    void on_actionAboutQt_triggered();
+    void readData();
+    void on_btn_Open_clicked();
 };
 
 #endif // INTERFACING_H
