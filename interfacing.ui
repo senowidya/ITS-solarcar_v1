@@ -46,7 +46,7 @@
        </rect>
       </property>
      </widget>
-     <widget class="QCheckBox" name="chkLocalEcho">
+     <widget class="QCheckBox" name="chk_LocalEcho">
       <property name="geometry">
        <rect>
         <x>30</x>
@@ -82,7 +82,7 @@
        </rect>
       </property>
      </widget>
-     <widget class="QPushButton" name="btn_clear">
+     <widget class="QPushButton" name="btn_Clear">
       <property name="geometry">
        <rect>
         <x>470</x>
@@ -257,6 +257,11 @@
         <item>
          <property name="text">
           <string>ttyUSB0</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>rfcomm0</string>
          </property>
         </item>
         <item>

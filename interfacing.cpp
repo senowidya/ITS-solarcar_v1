@@ -64,7 +64,8 @@ void interfacing::on_btn_Open_clicked()
        obj_port->setPortName(dev_name);
 
        if(obj_port->open(QIODevice::ReadWrite)){
-           obj_port->setBaudRate(dev_baud,QSerialPort::AllDirections);
+//           obj_port->setBaudRate(dev_baud,QSerialPort::AllDirections);
+           obj_port->setBaudRate(dev_baud);
            obj_port->setDataBits(dev_DataBits);
            obj_port->setStopBits(QSerialPort::OneStop);
            obj_port->setFlowControl(QSerialPort::NoFlowControl);
@@ -75,6 +76,7 @@ void interfacing::on_btn_Open_clicked()
                 }
        else{
        QMessageBox::critical(this,"Failed","port failed on "+dev_name);
+
        ui->btn_Open->setText("Open");
        ui->txt_portname->clear();
        }
@@ -86,26 +88,29 @@ void interfacing::on_btn_Open_clicked()
            }
     }
 
+bool interfacing::eventFilter(QObject *obj, QEvent *event){
+    if(event->type()== QEvent::KeyPress){
+        QKeyEvent* keyEvent = static_cast<QKeyEvent* >(event);
+        if(obj_port->isOpen()){
+            QString s = keyEvent->text();
+            if(s.length()){
+                char ch = s.at(0).toLatin1();
+                QByteArray chb= QByteArray::fromRawData(&ch,1);
+                obj_port->write(chb);
 
-//        if(my_port->open(QIODevice::ReadWrite)){
-//            my_port->setBaudRate(dev_baud,QSerialPort::AllDirections);
-//            my_port->setDataBits(QSerialPort::Data8);
-//            my_port->setStopBits(QSerialPort::OneStop);
-//            my_port->setFlowControl(QSerialPort::NoFlowControl);
-//            my_port->setParity(QSerialPort::NoParity);
-//            QMessageBox::information(this,"success","port success on "+dev_name );
-//            ui->btnOpen->setText("Close");
-//        }
-//        else{
-//            QMessageBox::critical(this,"Failed","port failed on "+dev_name);
-//            ui->btnOpen->setText("Open");
-//        }
-//    }
+                if(ui->chk_LocalEcho->isChecked()){
+                    ui->txt_Terminal->insertPlainText(chb);
+                }
+            }
+        }
+        return true;
+    }
+    else{
+        return QObject::eventFilter(obj, event);
+    }
+}
 
-//    else{
-//        if(my_port->isOpen()){
-//            my_port->close();
-//        }
-//        ui->btnOpen->setText("Open");
-//    }
-//}
+void interfacing::on_btn_Clear_clicked()
+{
+    ui->txt_Terminal->clear();
+}

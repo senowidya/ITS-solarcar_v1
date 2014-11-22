@@ -30,6 +30,8 @@ private slots:
     void on_actionAboutQt_triggered();
     void readData();
     void on_btn_Open_clicked();
+    bool eventFilter(QObject *obj, QEvent *event);
+    void on_btn_Clear_clicked();
 };
 
 #endif // INTERFACING_H
